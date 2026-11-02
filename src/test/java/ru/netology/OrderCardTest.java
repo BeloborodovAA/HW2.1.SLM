@@ -55,9 +55,13 @@ public class OrderCardTest {
         driver.findElement(By.cssSelector("[data-test-id='agreement']")).click();
         driver.findElement(By.cssSelector("button.button")).click();
 
-        new WebDriverWait(driver, Duration.ofSeconds(10))
+        WebElement successMessage = new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("[data-test-id='order-success']")));
+
+        assertEquals("Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.",
+                successMessage.getText().trim(), "Текст сообщения об успехе не совпадает (ожидалось успешное завершение)");
     }
+    
 
     @AfterEach
     public void tearDown() {
